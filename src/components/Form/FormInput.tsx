@@ -1,18 +1,20 @@
-import { ReactNode } from "react";
-import { Input as NextUIInput } from "@nextui-org/input";
+import { ChangeEventHandler, ReactNode } from "react";
+import { Input as NextUInput } from "@nextui-org/input";
 
-interface InputProps {
+interface FormInputProps {
   autoFocus?: boolean;
   endContent?: ReactNode;
   label?: ReactNode;
   placeholder?: string;
+  value?: string;
+  onChange?: ChangeEventHandler<HTMLInputElement>;
 }
 
-const Input: React.FC<InputProps> = (props) => {
-  const { autoFocus, endContent, label, placeholder } = props;
+const FormInput: React.FC<FormInputProps> = (props) => {
+  const { autoFocus, endContent, label, placeholder, value, onChange } = props;
 
   return (
-    <NextUIInput
+    <NextUInput
       isRequired
       autoFocus={autoFocus}
       endContent={endContent}
@@ -30,8 +32,10 @@ const Input: React.FC<InputProps> = (props) => {
         ],
         input: ["text-black/90", "placeholder:text-default-700/30"],
       }}
+      value={value}
+      onChange={onChange}
     />
   );
 };
 
-export default Input;
+export default FormInput;

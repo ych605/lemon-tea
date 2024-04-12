@@ -4,18 +4,14 @@ import { PropsWithChildren } from "react";
 interface ButtonProps {
   className?: string;
   onPress?: () => void;
-  isDisabled?: boolean;
+  isLoading?: boolean;
 }
 
 const Button: React.FC<PropsWithChildren<ButtonProps>> = (props) => {
-  const { className, onPress, isDisabled, children } = props;
+  const { className, onPress, isLoading, children } = props;
 
   return (
-    <NextUIButton
-      className={className}
-      onPress={onPress}
-      isDisabled={isDisabled}
-    >
+    <NextUIButton className={className} onPress={onPress} isLoading={isLoading}>
       {children}
     </NextUIButton>
   );

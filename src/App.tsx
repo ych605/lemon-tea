@@ -5,12 +5,12 @@ import Map from "./components/Map";
 
 const App: React.FC = () => {
   return (
-    <FormProvider>
-      <ModalProvider>
+    <ModalProvider>
+      <FormProvider>
         <Form />
         <Map />
-      </ModalProvider>
-    </FormProvider>
+      </FormProvider>
+    </ModalProvider>
   );
 };
 
