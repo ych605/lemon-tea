@@ -20,6 +20,7 @@ const SubmitButton: React.FC<SubmitButtonProps> = (props) => {
       isLoading={isLoading}
     >
       <input
+        data-testid="submit-button"
         ref={submitRef}
         type="submit"
         value="Go"
