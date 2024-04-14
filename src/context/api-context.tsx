@@ -46,7 +46,7 @@ export const APIProvider: React.FC<PropsWithChildren> = ({ children }) => {
   const getRoute = useQuery({
     queryKey: ["route", token],
     queryFn: ({ queryKey }) => {
-      const [_, token] = queryKey;
+      const [, token] = queryKey;
 
       return mainAPIBase.get<API.GetRoute.Response>(`route/${token}`);
       // return mainAPIBase.get<API.GetRoute.Response>(`mock/route/500`);
