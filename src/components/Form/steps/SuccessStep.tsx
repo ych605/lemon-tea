@@ -24,7 +24,7 @@ const SuccessStep: React.FC = () => {
           size="sm"
           value={100}
           classNames={{
-            indicator: "bg-[#d8ca86]",
+            indicator: "!bg-[#d8ca86]",
           }}
           aria-label="Success!"
         />

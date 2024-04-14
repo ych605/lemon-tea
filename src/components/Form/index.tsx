@@ -14,30 +14,26 @@ const Form: React.FC = () => {
   const { isOpen } = useModalContext();
   const { getRoute } = useAPIContext();
   const isFailure =
-    getRoute?.data?.data.status === API.GetRoute.ResponseStatus.FAILURE || getRoute?.isError;
+    !getRoute?.isFetching &&
+    (getRoute?.data?.data.status === API.GetRoute.ResponseStatus.FAILURE || getRoute?.isError);
+  const isFirstGettingRoute =
+    getRoute?.isFetching && getRoute?.data?.data.status !== API.GetRoute.ResponseStatus.IN_PROGRESS;
 
-  const renderedHeader = useMemo(() => {
-    if (isFailure)
-      return (
-        <ModalHeader>
-          <Image src={LemonTeaIcon} width={25} height={25} radius="none" />
-          <span>{"Oops, submit another lemon tea!"}</span>
-        </ModalHeader>
-      );
+  const renderedHeaderLine = useMemo(() => {
+    if (isFailure) return "Oops, submit another lemon tea!";
 
-    return (
-      <ModalHeader>
-        <Image src={LemonTeaIcon} width={25} height={25} radius="none" />
-        <span>{"Welcome, enjoy this lemon tea!"}</span>
-      </ModalHeader>
-    );
+    return "Welcome, enjoy this lemon tea!";
   }, [isFailure]);
 
   const renderedStep = useMemo(() => {
-    if (getRoute?.isError)
+    if (isFailure)
       return (
-        <FailureStep errorMessage={"We cannot process your routing, please try again later."} />
+        <FailureStep
+          errorMessage={"Sorry, We cannot process your routing.\nPlease try again later."}
+        />
       );
+
+    if (isFirstGettingRoute) return <InputStep />;
 
     switch (getRoute?.data?.data.status) {
       case API.GetRoute.ResponseStatus.IN_PROGRESS:
@@ -52,7 +48,7 @@ const Form: React.FC = () => {
       default:
         return <InputStep />;
     }
-  }, [getRoute?.data?.data.status, getRoute?.isError]);
+  }, [isFailure, isFirstGettingRoute, getRoute?.data?.data.status]);
 
   return (
     <Modal
@@ -76,9 +72,13 @@ const Form: React.FC = () => {
         body: ["items-center", "py-5", "gap-5"],
         footer: "pb-5",
       }}
+      placement="center"
     >
       <ModalContent>
-        {renderedHeader}
+        <ModalHeader>
+          <Image src={LemonTeaIcon} width={25} height={25} radius="none" />
+          <span>{renderedHeaderLine}</span>
+        </ModalHeader>
         {renderedStep}
       </ModalContent>
     </Modal>

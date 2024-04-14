@@ -18,6 +18,7 @@ export const APIContext = createContext<APIContextValue>({});
 
 const mainAPIBase = axios.create({
   baseURL: env.API_ENDPOINT,
+  timeout: 5000,
 });
 
 export const APIProvider: React.FC<PropsWithChildren> = ({ children }) => {

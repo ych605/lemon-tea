@@ -1,3 +1,5 @@
+import { MapStringCoordinate } from "./map";
+
 export namespace API {
   export namespace SubmitRouting {
     export interface RequestBody {
@@ -17,9 +19,9 @@ export namespace API {
       FAILURE = "failure",
     }
 
-    interface SuccessResponse {
+    export interface SuccessResponse {
       status: ResponseStatus.SUCCESS;
-      path: [number, number][];
+      path: MapStringCoordinate[];
       total_distance: number;
       total_time: number;
     }

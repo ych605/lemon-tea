@@ -58,7 +58,7 @@ const InputStep: React.FC = () => {
           isDisabled={isLoading}
         />
         {submitRoutingRequest?.isError && (
-          <p className="rounded-medium bg-red-100 p-4 text-xs font-semibold text-red-400">
+          <p className="w-full rounded-medium bg-red-100 p-4 text-xs font-semibold text-red-400">
             {renderError(submitRoutingRequest?.error)}
           </p>
         )}

@@ -11,7 +11,7 @@ const InProgressStep: React.FC = () => {
         <Progress
           size="sm"
           classNames={{
-            indicator: "bg-[#d8ca86]",
+            indicator: "!bg-[#d8ca86]",
           }}
           isIndeterminate
           aria-label="In progress..."
