@@ -1,5 +1,5 @@
 import { useCallback, useRef } from "react";
-import Button from "../common/Button";
+import Button from "../../common/Button";
 
 interface SubmitButtonProps {
   isLoading?: boolean;
@@ -23,7 +23,7 @@ const SubmitButton: React.FC<SubmitButtonProps> = (props) => {
         ref={submitRef}
         type="submit"
         value="Go"
-        className="select-none pointer-events-none"
+        className="pointer-events-none select-none"
         tabIndex={-1}
       />
     </Button>

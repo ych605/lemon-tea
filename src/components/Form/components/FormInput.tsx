@@ -1,4 +1,4 @@
-import { ChangeEventHandler, ReactNode } from "react";
+import { ReactNode } from "react";
 import { Input as NextUInput } from "@nextui-org/input";
 
 interface FormInputProps {
@@ -7,11 +7,24 @@ interface FormInputProps {
   label?: ReactNode;
   placeholder?: string;
   value?: string;
-  onChange?: ChangeEventHandler<HTMLInputElement>;
+  onValueChange?: (value: string) => void;
+  isDisabled?: boolean;
+  isInvalid?: boolean;
+  errorMessage?: string;
 }
 
 const FormInput: React.FC<FormInputProps> = (props) => {
-  const { autoFocus, endContent, label, placeholder, value, onChange } = props;
+  const {
+    autoFocus,
+    endContent,
+    label,
+    placeholder,
+    value,
+    onValueChange,
+    isDisabled,
+    isInvalid,
+    errorMessage,
+  } = props;
 
   return (
     <NextUInput
@@ -33,7 +46,10 @@ const FormInput: React.FC<FormInputProps> = (props) => {
         input: ["text-black/90", "placeholder:text-default-700/30"],
       }}
       value={value}
-      onChange={onChange}
+      onValueChange={onValueChange}
+      isDisabled={isDisabled}
+      isInvalid={isInvalid}
+      errorMessage={errorMessage}
     />
   );
 };

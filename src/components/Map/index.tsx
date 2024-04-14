@@ -1,13 +1,13 @@
-import { useFormContext } from "../../hooks/useFormContext";
+import { useModalContext } from "../../hooks/useModalContext";
 import Button from "../common/Button";
 
 interface MapProps {}
 
 const Map: React.FC<MapProps> = (props) => {
-  const { onOpen } = useFormContext();
+  const { onOpen } = useModalContext();
 
   return (
-    <div className="w-screen h-screen bg-map-placeholder bg-cover bg-center bg-no-repeat">
+    <div className="h-screen w-screen bg-map-placeholder bg-cover bg-center bg-no-repeat">
       <Button onPress={onOpen}>Open</Button>
     </div>
   );
