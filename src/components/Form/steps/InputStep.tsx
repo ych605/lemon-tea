@@ -1,4 +1,4 @@
-import { useCallback } from "react";
+import { useCallback, useMemo } from "react";
 import { ModalBody, ModalFooter } from "@nextui-org/modal";
 import { useFormContext } from "react-hook-form";
 import { PiFlagDuotone, PiMapPinDuotone } from "react-icons/pi";
@@ -8,15 +8,9 @@ import FormInput from "../components/FormInput";
 import SubmitButton from "../components/SubmitButton";
 import { AxiosError } from "axios";
 
-interface InputStepProps {}
-
-const InputStep: React.FC<InputStepProps> = () => {
-  const { submitRoutingRequest } = useAPIContext();
-  const {
-    watch,
-    setValue,
-    formState: { errors },
-  } = useFormContext<FormBody>();
+const InputStep: React.FC = () => {
+  const { submitRoutingRequest, getRoute } = useAPIContext();
+  const { watch, setValue, handleSubmit } = useFormContext<FormBody>();
 
   const { origin, destination } = watch();
 
@@ -25,15 +19,27 @@ const InputStep: React.FC<InputStepProps> = () => {
     [setValue],
   );
 
+  const onFormSubmit = useMemo(
+    () =>
+      handleSubmit((formData) => {
+        const { origin, destination } = formData;
+
+        submitRoutingRequest?.mutate({ origin, destination });
+      }),
+    [submitRoutingRequest?.mutate],
+  );
+
   const renderError = useCallback((error?: Error) => {
     if (error instanceof AxiosError) return "Oops, something went wrong! Please try again later.";
 
     return error?.message || "";
   }, []);
 
+  const isLoading = submitRoutingRequest?.isPending || getRoute?.isFetching;
+
   return (
-    <>
-      <ModalBody>
+    <form onSubmit={onFormSubmit}>
+      <ModalBody className="pb-1">
         <FormInput
           autoFocus
           label="From"
@@ -41,9 +47,7 @@ const InputStep: React.FC<InputStepProps> = () => {
           endContent={<PiMapPinDuotone className="pointer-events-none text-xl" />}
           value={origin}
           onValueChange={onInputValueChange("origin")}
-          isDisabled={submitRoutingRequest?.isPending}
-          isInvalid={!!errors.origin}
-          errorMessage={errors.origin?.message}
+          isDisabled={isLoading}
         />
         <FormInput
           label="To"
@@ -51,9 +55,7 @@ const InputStep: React.FC<InputStepProps> = () => {
           endContent={<PiFlagDuotone className="pointer-events-none text-xl" />}
           value={destination}
           onValueChange={onInputValueChange("destination")}
-          isDisabled={submitRoutingRequest?.isPending}
-          isInvalid={!!errors.destination}
-          errorMessage={errors.destination?.message}
+          isDisabled={isLoading}
         />
         {submitRoutingRequest?.isError && (
           <p className="rounded-medium bg-red-100 p-4 text-xs font-semibold text-red-400">
@@ -62,9 +64,9 @@ const InputStep: React.FC<InputStepProps> = () => {
         )}
       </ModalBody>
       <ModalFooter>
-        <SubmitButton isLoading={submitRoutingRequest?.isPending} />
+        <SubmitButton isLoading={isLoading} />
       </ModalFooter>
-    </>
+    </form>
   );
 };
 
