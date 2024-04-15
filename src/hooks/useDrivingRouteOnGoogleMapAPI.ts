@@ -65,7 +65,7 @@ export const useDrivingRouteOnGoogleMapAPI = (props: useDrivingRouteOnGoogleMapA
         },
         (result: any, status: any) => {
           if (status !== googleMapAPI.maps.DirectionsStatus.OK)
-            return alert(`Error code: ${status}`);
+            return alert(`Directions status is not OK. (Status: ${status})`);
 
           const [{ overview_path: overviewPath, bounds }] = result.routes;
 
