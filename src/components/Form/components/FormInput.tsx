@@ -83,6 +83,17 @@ const FormInput: React.FC<FormInputProps> = (props) => {
           input: ["text-black/90", "placeholder:text-default-700/30"],
         },
       }}
+      listboxProps={{
+        itemClasses: {
+          base: [
+            "select-none",
+            "!outline-none",
+            "data-[focus=true]:!bg-[#efddc4]",
+            "hover:!bg-[#efddc4]",
+            "!text-[#816c02]",
+          ],
+        },
+      }}
     >
       {({ description }) => (
         <AutocompleteItem key={description} tabIndex={-1} aria-label={description}>
