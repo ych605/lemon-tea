@@ -26,10 +26,10 @@ const Form: React.FC = () => {
   }, [isFailure]);
 
   const renderedStep = useMemo(() => {
-    if (isFailure)
+    if (isFailure && getRoute?.data?.data.status !== API.GetRoute.ResponseStatus.FAILURE)
       return (
         <FailureStep
-          errorMessage={"Sorry, We cannot process your routing.\nPlease try again later."}
+          errorMessage={"Sorry, We cannot process your routing. Please try again later."}
         />
       );
 

@@ -57,6 +57,7 @@ export const APIProvider: React.FC<PropsWithChildren> = ({ children }) => {
     retry: false,
     enabled: !!token,
     refetchInterval,
+    refetchOnWindowFocus: false,
   });
 
   useEffect(() => {
