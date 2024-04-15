@@ -2,6 +2,7 @@ import { useCallback, useMemo } from "react";
 import { ModalBody, ModalFooter } from "@nextui-org/modal";
 import { useFormContext } from "react-hook-form";
 import { PiFlagDuotone, PiMapPinDuotone } from "react-icons/pi";
+import { renderError } from "../../../utils/error";
 import { FormBody } from "../../../hooks/useForm";
 import { useAPIContext } from "../../../hooks/useAPIContext";
 import FormInput from "../components/FormInput";
@@ -32,12 +33,6 @@ const InputStep: React.FC = () => {
         submitRoutingRequest?.mutate({ origin, destination });
       }),
     [submitRoutingRequest?.mutate],
-  );
-
-  const renderError = useCallback(
-    (error?: Error) =>
-      `Oops, something went wrong! Please try again later.${error?.message ? ` (Error: ${error.message})` : ""}`,
-    [],
   );
 
   const isLoading = submitRoutingRequest?.isPending || getRoute?.isFetching;

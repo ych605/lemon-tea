@@ -9,6 +9,7 @@ import InputStep from "./steps/InputStep";
 import InProgressStep from "./steps/InProgressStep";
 import SuccessStep from "./steps/SuccessStep";
 import FailureStep from "./steps/FailedStep";
+import { renderError } from "../../utils/error";
 
 const Form: React.FC = () => {
   const { isOpen } = useModalContext();
@@ -29,7 +30,10 @@ const Form: React.FC = () => {
     if (isFailure && getRoute?.data?.data.status !== API.GetRoute.ResponseStatus.FAILURE)
       return (
         <FailureStep
-          errorMessage={"Sorry, We cannot process your routing. Please try again later."}
+          errorMessage={renderError(
+            getRoute?.error,
+            "Sorry, We cannot process your routing. Please try again later.",
+          )}
         />
       );
 
@@ -48,7 +52,7 @@ const Form: React.FC = () => {
       default:
         return <InputStep />;
     }
-  }, [isFailure, isFirstGettingRoute, getRoute?.data?.data.status]);
+  }, [isFailure, getRoute?.error, isFirstGettingRoute, getRoute?.data?.data.status]);
 
   return (
     <Modal
