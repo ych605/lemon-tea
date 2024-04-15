@@ -6,7 +6,6 @@ import { FormBody } from "../../../hooks/useForm";
 import { useAPIContext } from "../../../hooks/useAPIContext";
 import FormInput from "../components/FormInput";
 import SubmitButton from "../components/SubmitButton";
-import { AxiosError } from "axios";
 
 const InputStep: React.FC = () => {
   const { submitRoutingRequest, getRoute } = useAPIContext();
@@ -35,11 +34,11 @@ const InputStep: React.FC = () => {
     [submitRoutingRequest?.mutate],
   );
 
-  const renderError = useCallback((error?: Error) => {
-    if (error instanceof AxiosError) return "Oops, something went wrong! Please try again later.";
-
-    return error?.message || "";
-  }, []);
+  const renderError = useCallback(
+    (error?: Error) =>
+      `Oops, something went wrong! Please try again later.${error?.message ? ` (Error: ${error.message})` : ""}`,
+    [],
+  );
 
   const isLoading = submitRoutingRequest?.isPending || getRoute?.isFetching;
 
