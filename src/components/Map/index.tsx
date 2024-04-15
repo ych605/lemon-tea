@@ -1,7 +1,6 @@
 import { useCallback, useMemo, useState } from "react";
 import GoogleMapReact from "google-map-react";
 import { useFormContext } from "react-hook-form";
-import env from "../../constants/env";
 import { API } from "../../types/api";
 import { GoogleMapAPI, MapNumberCoordinate } from "../../types/map";
 import { useAPIContext } from "../../hooks/useAPIContext";
@@ -9,15 +8,13 @@ import { useModalContext } from "../../hooks/useModalContext";
 import { useDrivingRouteOnGoogleMapAPI } from "../../hooks/useDrivingRouteOnGoogleMapAPI";
 import MapDetailsCard from "./components/MapDetailsCard";
 
-interface MapProps {}
-
 const defaultCenter = {
   lat: 22.396428,
   lng: 114.109497,
 };
 const defaultZoom = 11;
 
-const Map: React.FC<MapProps> = () => {
+const Map: React.FC = () => {
   const { reset } = useFormContext();
   const { onOpen } = useModalContext();
   const { submitRoutingRequest, getRoute } = useAPIContext();
@@ -59,7 +56,6 @@ const Map: React.FC<MapProps> = () => {
   return (
     <div className="relative h-screen w-screen">
       <GoogleMapReact
-        bootstrapURLKeys={{ key: env.GOOGLE_MAP_API_ENDPOINT }}
         defaultCenter={defaultCenter}
         defaultZoom={defaultZoom}
         options={{
@@ -70,13 +66,14 @@ const Map: React.FC<MapProps> = () => {
         yesIWantToUseGoogleMapApiInternals
         onGoogleApiLoaded={onGoogleApiLoaded}
       />
-      {getRoute?.data?.data.status === API.GetRoute.ResponseStatus.SUCCESS && (
-        <MapDetailsCard
-          totalDistance={getRoute?.data?.data.total_distance}
-          totalTime={getRoute?.data?.data.total_time}
-          onResubmit={onResubmit}
-        />
-      )}
+      {!getRoute?.isFetching &&
+        getRoute?.data?.data.status === API.GetRoute.ResponseStatus.SUCCESS && (
+          <MapDetailsCard
+            totalDistance={getRoute?.data?.data.total_distance}
+            totalTime={getRoute?.data?.data.total_time}
+            onResubmit={onResubmit}
+          />
+        )}
     </div>
   );
 };

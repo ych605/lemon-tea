@@ -62,12 +62,15 @@ const Form: React.FC = () => {
         base: [
           ...(isFailure ? ["bg-[#ffe8e5]", "text-[#ec7c68]"] : ["bg-[#fff4e5]", "text-[#aa9947]"]),
           "shadow-2xl",
+          "!overflow-visible",
         ],
         header: [
           ...(isFailure ? ["bg-[#ffcaca]"] : ["bg-[#f5e9a9]"]),
           "items-start",
           "gap-2",
           "pt-5",
+          "rounded-large",
+          "rounded-b-none",
         ],
         body: ["items-center", "py-5", "gap-5"],
         footer: "pb-5",

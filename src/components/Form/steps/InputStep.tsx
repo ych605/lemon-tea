@@ -19,6 +19,12 @@ const InputStep: React.FC = () => {
     [setValue],
   );
 
+  const onOriginChange = useMemo(() => onInputValueChange("origin"), [onInputValueChange]);
+  const onDestinationChange = useMemo(
+    () => onInputValueChange("destination"),
+    [onInputValueChange],
+  );
+
   const onFormSubmit = useMemo(
     () =>
       handleSubmit((formData) => {
@@ -38,7 +44,7 @@ const InputStep: React.FC = () => {
   const isLoading = submitRoutingRequest?.isPending || getRoute?.isFetching;
 
   return (
-    <form onSubmit={onFormSubmit}>
+    <form autoFocus={false} onSubmit={onFormSubmit}>
       <ModalBody className="pb-1">
         <FormInput
           autoFocus
@@ -46,7 +52,7 @@ const InputStep: React.FC = () => {
           placeholder="Enter your origin"
           endContent={<PiMapPinDuotone className="pointer-events-none text-xl" />}
           value={origin}
-          onValueChange={onInputValueChange("origin")}
+          onValueChange={onOriginChange}
           isDisabled={isLoading}
         />
         <FormInput
@@ -54,7 +60,7 @@ const InputStep: React.FC = () => {
           placeholder="Enter your destination"
           endContent={<PiFlagDuotone className="pointer-events-none text-xl" />}
           value={destination}
-          onValueChange={onInputValueChange("destination")}
+          onValueChange={onDestinationChange}
           isDisabled={isLoading}
         />
         {submitRoutingRequest?.isError && (
