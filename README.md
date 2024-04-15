@@ -30,6 +30,7 @@ VITE_GOOGLE_MAP_API_KEY="<YOUR API KEY HERE>"
 Alternatively, you can create `.env.local` file in the same directory as `.env`. The value with the same key will override:
 
 ```bash
+# .env.local
 VITE_API_ENDPOINT="<SOME OTHER API ENDPOINT HERE>"
 VITE_GOOGLE_MAP_API_KEY="<YOUR API KEY HERE>"
 ```
