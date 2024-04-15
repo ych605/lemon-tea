@@ -11,7 +11,7 @@ import Map from "../components/Map";
 const MainPage: React.FC = () => {
   const formMethods = useForm();
   const { isLoaded, loadError, url } = useLoadScript({
-    googleMapsApiKey: env.GOOGLE_MAP_API_ENDPOINT,
+    googleMapsApiKey: env.GOOGLE_MAP_API_KEY,
     libraries: googleMapLibraries,
   });
 
