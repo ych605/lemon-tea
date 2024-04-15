@@ -24,10 +24,10 @@ describe("MainPage", () => {
   afterEach(() => {});
 
   it("renders the MainPage component in InputStep", () => {
-    const modalHeader = screen.getByText(/Welcome\, enjoy this lemon tea\!/i);
+    const modalHeader = screen.getByText(/Welcome, enjoy this lemon tea!/i);
     const originInput = screen.getByPlaceholderText(/Enter your origin/i);
     const destinationInput = screen.getByPlaceholderText(/Enter your destination/i);
-    const submitButton = screen.getByTestId(/submit\-button/i);
+    const submitButton = screen.getByTestId(/submit-button/i);
 
     expect(modalHeader).toBeInTheDocument();
     expect(originInput).toBeInTheDocument();
@@ -38,7 +38,7 @@ describe("MainPage", () => {
   it("can submit origin and destination in InputStep", async () => {
     const originInput = screen.getByPlaceholderText(/Enter your origin/i);
     const destinationInput = screen.getByPlaceholderText(/Enter your destination/i);
-    const submitButton = screen.getByTestId(/submit\-button/i);
+    const submitButton = screen.getByTestId(/submit-button/i);
 
     fireEvent.change(originInput, { target: { value: SubmitRoutingOrigin.SuccessOrigin } });
     fireEvent.change(destinationInput, { target: { value: "Destination" } });
@@ -49,7 +49,7 @@ describe("MainPage", () => {
     expect(destinationInput).not.toBeInTheDocument();
     expect(submitButton).not.toBeInTheDocument();
 
-    const successLine = screen.getByText(/Process success\!/i);
+    const successLine = screen.getByText(/Process success!/i);
 
     expect(successLine).toBeInTheDocument();
 
@@ -61,7 +61,7 @@ describe("MainPage", () => {
   it("can show error message after submitting in InputStep", async () => {
     const originInput = screen.getByPlaceholderText(/Enter your origin/i);
     const destinationInput = screen.getByPlaceholderText(/Enter your destination/i);
-    const submitButton = screen.getByTestId(/submit\-button/i);
+    const submitButton = screen.getByTestId(/submit-button/i);
 
     fireEvent.change(originInput, { target: { value: SubmitRoutingOrigin.ServerErrorOrigin } });
     fireEvent.change(destinationInput, { target: { value: "Destination" } });
@@ -80,7 +80,7 @@ describe("MainPage", () => {
   it("can show InProgressStep after submitting in InputStep", async () => {
     const originInput = screen.getByPlaceholderText(/Enter your origin/i);
     const destinationInput = screen.getByPlaceholderText(/Enter your destination/i);
-    const submitButton = screen.getByTestId(/submit\-button/i);
+    const submitButton = screen.getByTestId(/submit-button/i);
 
     fireEvent.change(originInput, { target: { value: SubmitRoutingOrigin.InProgressOrigin } });
     fireEvent.change(destinationInput, { target: { value: "Destination" } });
@@ -91,7 +91,7 @@ describe("MainPage", () => {
     expect(destinationInput).not.toBeInTheDocument();
     expect(submitButton).not.toBeInTheDocument();
 
-    const inProgressLine = screen.getByText(/We are processing your routing\, stay tuned\!/i);
+    const inProgressLine = screen.getByText(/We are processing your routing, stay tuned!/i);
 
     expect(inProgressLine).toBeInTheDocument();
   });
@@ -99,7 +99,7 @@ describe("MainPage", () => {
   it("can show FailedStep of returned error message after submitting in InputStep", async () => {
     const originInput = screen.getByPlaceholderText(/Enter your origin/i);
     const destinationInput = screen.getByPlaceholderText(/Enter your destination/i);
-    const submitButton = screen.getByTestId(/submit\-button/i);
+    const submitButton = screen.getByTestId(/submit-button/i);
 
     fireEvent.change(originInput, { target: { value: SubmitRoutingOrigin.FailureOrigin } });
     fireEvent.change(destinationInput, { target: { value: "Destination" } });
@@ -118,7 +118,7 @@ describe("MainPage", () => {
   it("can show FailedStep of fixed error message after submitting in InputStep", async () => {
     const originInput = screen.getByPlaceholderText(/Enter your origin/i);
     const destinationInput = screen.getByPlaceholderText(/Enter your destination/i);
-    const submitButton = screen.getByTestId(/submit\-button/i);
+    const submitButton = screen.getByTestId(/submit-button/i);
 
     fireEvent.change(originInput, { target: { value: SubmitRoutingOrigin.ProcessErrorOrigin } });
     fireEvent.change(destinationInput, { target: { value: "Destination" } });
@@ -130,7 +130,7 @@ describe("MainPage", () => {
     expect(submitButton).not.toBeInTheDocument();
 
     const errorMessage = screen.getByText(
-      /Sorry\, We cannot process your routing\. Please try again later\./i,
+      /Sorry, We cannot process your routing\. Please try again later\./i,
     );
 
     expect(errorMessage).toBeInTheDocument();
