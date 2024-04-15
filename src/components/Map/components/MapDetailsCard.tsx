@@ -19,7 +19,7 @@ const MapDetailsCard: React.FC<MapDetailsCardProps> = (props) => {
   const { origin, destination } = watch();
 
   return (
-    <div className="pointer-events-none absolute bottom-0 right-0 flex items-center justify-center p-4">
+    <div className="pointer-events-none absolute bottom-0 left-0 flex items-center justify-center p-4">
       <Card
         isBlurred
         className="pointer-events-auto w-auto border-none bg-background/20"
@@ -35,9 +35,9 @@ const MapDetailsCard: React.FC<MapDetailsCardProps> = (props) => {
         </CardHeader>
         <CardBody>
           <div className="mb-2 flex flex-col items-center">
-            <div className="w-full rounded-md bg-gray-400/20 p-1">{origin}</div>
+            <div className="w-full rounded-md bg-gray-200/40 p-1">{origin}</div>
             <FaArrowDown />
-            <div className="w-full rounded-md bg-gray-400/20 p-1">{destination}</div>
+            <div className="w-full rounded-md bg-gray-200/40 p-1">{destination}</div>
           </div>
           <p>{`Total distance: ${totalDistance.toLocaleString()}`}</p>
           <p>{`Total time: ${totalTime.toLocaleString()}`}</p>

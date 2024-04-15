@@ -59,8 +59,8 @@ const FormInput: React.FC<FormInputProps> = (props) => {
       placeholder={placeholder}
       value={value}
       onInputChange={onInputValueChange}
-      onSelectionChange={console.log}
       defaultFilter={() => true}
+      onKeyDown={(e: any) => e?.continuePropagation?.()}
       endContent={endContent}
       isDisabled={isDisabled}
       isInvalid={isInvalid}
